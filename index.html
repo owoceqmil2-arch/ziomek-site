@@ -1,136 +1,64 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#34eb7d">
-  <meta property="og:title" content="ZIOMEK.EXE">
-  <meta property="og:description" content="Siemano kolano! Odpal i zobacz, co się stanie.">
-  <title>ZIOMEK.EXE</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; }
-    html, body { width: 100%; min-height: 100%; margin: 0; }
-    body {
-      overflow: hidden; background: #111; color: #f7f7f7;
-      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-      cursor: crosshair;
-    }
-    #intro {
-      min-height: 100vh; display: grid; place-items: center; text-align: center;
-      padding: 24px; background: radial-gradient(circle at 50% 40%, #2c5139, #111 65%);
-      transition: opacity .35s ease;
-    }
-    .intro-inner { max-width: 700px; }
-    h1 { font-size: clamp(2.4rem, 9vw, 6rem); margin: 0 0 10px; line-height: .98; }
-    h2 { font-size: clamp(1.1rem, 3vw, 1.7rem); margin: 12px 0; }
-    p { line-height: 1.5; color: #d8d8d8; }
-    .hint { color: #a9ffbf; }
-    button {
-      border: 0; border-radius: 12px; padding: 13px 19px; font-weight: 800;
-      font-size: 1rem; cursor: pointer; background: #34eb7d; color: #07180d;
-      box-shadow: 0 5px 0 #168340; margin: 8px;
-    }
-    button:hover { transform: translateY(-1px); }
-    #arena { display: none; position: fixed; inset: 0; overflow: hidden; background: #080808; }
-    .floater {
-      position: absolute; max-width: min(34vw, 280px); max-height: 45vh;
-      object-fit: contain; user-select: none; pointer-events: none;
-      filter: drop-shadow(0 5px 9px #000b);
-      animation: wobble var(--speed, 1.8s) ease-in-out infinite alternate;
-    }
-    .caption {
-      position: absolute; color: #ff3030; font-weight: 1000;
-      font-size: clamp(18px, 3vw, 38px); text-shadow: 2px 2px #fff, 4px 4px 10px #000;
-      pointer-events: none; white-space: nowrap; animation: wobble 1s infinite alternate;
-    }
-    .flash { animation: flash .16s steps(2, end) infinite; }
-    #stop {
-      position: fixed; z-index: 10000; right: 12px; top: 12px; font-size: 13px;
-      padding: 9px 12px; margin: 0; opacity: .85;
-    }
-    @keyframes wobble { from { transform: rotate(-12deg) scale(.92); } to { transform: rotate(13deg) scale(1.08); } }
-    @keyframes flash { 0% { background:#080808; } 50% { background:#292929; } 100% { background:#080808; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 4s !important; } }
-  </style>
-</head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#34eb7d">
+<meta property="og:title" content="ZIOMEK.EXE"><meta property="og:description" content="Siemano kolano. Odpal na własną odpowiedzialność XD">
+<title>ZIOMEK.EXE</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif}
+body{overflow:hidden;background:#101010;color:#fff}
+#intro{height:100%;display:grid;place-items:center;text-align:center;padding:22px;background:radial-gradient(circle,#294632,#090909 68%)}
+h1{font-size:clamp(42px,9vw,90px);margin:0 0 12px;letter-spacing:-3px}p{line-height:1.5}
+button{cursor:pointer;border:0;border-radius:8px;background:#34eb7d;color:#06170b;font-weight:900;padding:13px 18px;font-size:16px}
+#go{box-shadow:0 5px #178340}
+#desktop{display:none;position:fixed;inset:0;background:#1688a4;overflow:hidden;background-image:linear-gradient(135deg,#167a94,#092a55)}
+#desktop:before{content:"ZIOMEK OS 2000";position:absolute;bottom:10px;left:14px;font-weight:bold;color:#ffffff80;font-size:13px}
+.window{position:absolute;width:min(280px,72vw);background:#dedede;color:#111;border:2px solid #f5f5f5;box-shadow:5px 6px 0 #0006;animation:pop .16s ease-out;user-select:none}
+.titlebar{height:26px;background:linear-gradient(90deg,#142e86,#3c9bd4);color:white;font-size:13px;font-weight:bold;padding:5px 7px;display:flex;justify-content:space-between;align-items:center}
+.x{background:#d8d8d8;color:#111;border:1px solid white;padding:0 5px;border-radius:0;font-size:14px;line-height:17px}
+.window img{display:block;width:100%;height:210px;object-fit:cover}
+.window .msg{padding:8px;font-weight:bold;font-size:14px;min-height:34px}
+.window .bar{padding:0 8px 8px;display:flex;gap:5px}.window .bar button{font-size:11px;padding:6px 8px;border-radius:2px}
+.taskbar{position:absolute;bottom:0;left:0;right:0;height:42px;background:#d7d7d7;border-top:2px solid white;display:flex;align-items:center;padding:5px;gap:10px;color:#111}
+.startbtn{padding:7px 12px;border:2px outset white;background:#ddd;color:#111;font-weight:bold}
+.tasktext{font-size:12px;font-weight:bold}
+#exit{position:fixed;right:8px;top:8px;z-index:99999;background:#222;color:white;border:1px solid #fff;padding:9px;font-size:12px}
+@keyframes pop{from{transform:scale(.1) rotate(-8deg);opacity:.2}to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes shake{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(4px,-3px) rotate(1deg)}75%{transform:translate(-4px,3px) rotate(-1deg)}}
+.shake{animation:shake .13s infinite}
+@media(prefers-reduced-motion:reduce){.window,.shake{animation:none}}
+</style></head>
 <body>
-  <main id="intro">
-    <div class="intro-inner">
-      <h1>SIEMANO KOLANO 💀</h1>
-      <h2>Witaj na stronie twojego ulubionego problemu.</h2>
-      <p class="hint">Walnij 3 razy w SPACJĘ albo kliknij przycisk.</p>
-      <p>Uwaga: mogą pojawić się migające elementy i głośne dźwięki. Dźwięk uruchamia się dopiero po kliknięciu.</p>
-      <button id="start">ODPAL CHAOS</button>
-    </div>
-  </main>
-  <section id="arena" aria-label="Tryb chaosu">
-    <button id="stop" type="button">STOP / WYJDŹ</button>
-  </section>
-  <script>
-    const intro = document.querySelector('#intro');
-    const arena = document.querySelector('#arena');
-    const start = document.querySelector('#start');
-    const stop = document.querySelector('#stop');
-    let spaceCount = 0, active = false, spawnTimer, textTimer, audioCtx;
-    const phrases = [
-      'CO TY ROBISZ XDD', 'ZAMKNIJ OKNO 💀', 'ZIOMEK.exe', 'KTO TO ODPALIŁ',
-      'ALE BYŁO', 'SYSTEM ZIOMKA PRZESTAŁ DZIAŁAĆ', 'XD XD XD', 'PATRZ ZA SIEBIE'
-    ];
-    // Dodaj zdjęcie jako assets/ziomek.jpg, a następnie zmień tę wartość na 'assets/ziomek.jpg'.
-    const FRIEND_IMAGE = '';
-    const fallbackFaces = ['💀','😭','🗿','🤨','🐸','🦆','🤡','🔥'];
-    function random(min, max) { return Math.random() * (max - min) + min; }
-    function playBeep() {
-      try {
-        audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-        osc.type = 'square'; osc.frequency.value = random(180, 950);
-        gain.gain.value = 0.035;
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.09);
-      } catch (_) {}
-    }
-    function makeFloater() {
-      const el = document.createElement(FRIEND_IMAGE ? 'img' : 'div');
-      el.className = FRIEND_IMAGE ? 'floater' : 'caption';
-      if (FRIEND_IMAGE) { el.src = FRIEND_IMAGE; el.alt = 'Zdjęcie ziomka'; }
-      else { el.textContent = fallbackFaces[Math.floor(Math.random()*fallbackFaces.length)]; el.style.fontSize = random(50, 150) + 'px'; }
-      el.style.left = random(0, Math.max(0, innerWidth - 160)) + 'px';
-      el.style.top = random(0, Math.max(0, innerHeight - 100)) + 'px';
-      el.style.setProperty('--speed', random(.35, 2.4) + 's');
-      arena.appendChild(el);
-      if (arena.children.length > 65) arena.children[1]?.remove();
-      if (Math.random() > .65) playBeep();
-    }
-    function makeText() {
-      const el = document.createElement('div');
-      el.className = 'caption';
-      el.textContent = phrases[Math.floor(Math.random()*phrases.length)];
-      el.style.left = random(0, Math.max(0, innerWidth - 330)) + 'px';
-      el.style.top = random(0, Math.max(0, innerHeight - 70)) + 'px';
-      el.style.transform = `rotate(${random(-25,25)}deg)`;
-      arena.appendChild(el);
-    }
-    function begin() {
-      if (active) return;
-      active = true; intro.style.display = 'none'; arena.style.display = 'block';
-      document.body.classList.add('flash');
-      for (let i=0; i<10; i++) makeFloater();
-      spawnTimer = setInterval(makeFloater, 360);
-      textTimer = setInterval(makeText, 900);
-    }
-    function end() {
-      active = false; clearInterval(spawnTimer); clearInterval(textTimer);
-      arena.replaceChildren(stop); arena.style.display = 'none'; intro.style.display = 'grid';
-      document.body.classList.remove('flash'); spaceCount = 0;
-    }
-    start.addEventListener('click', begin);
-    stop.addEventListener('click', end);
-    document.addEventListener('keydown', e => {
-      if (e.code === 'Escape') end();
-      if (e.code === 'Space' && !active) { e.preventDefault(); spaceCount++; if (spaceCount >= 3) begin(); }
-    });
-  </script>
-</body>
-</html>
+<main id="intro"><div>
+<h1>SIEMANO KOLANO 💀</h1>
+<h2>ZIOMEK.EXE — wersja podejrzanie stabilna</h2>
+<p>Walnij 3 razy SPACJĘ albo kliknij guzik.<br>Wyskoczą okienka, będzie hałas i ogólny przypał XDD</p>
+<button id="go">ODPAL CHAOS</button>
+<p style="font-size:12px;color:#b7d6bf">Dźwięk startuje po kliknięciu. Wyjście: ESC lub przycisk STOP.</p>
+</div></main>
+<section id="desktop" aria-label="Tryb chaosu"><button id="exit">STOP / WYJDŹ ✕</button><div class="taskbar"><button class="startbtn">⊞ START</button><span class="tasktext">ZIOMEK.EXE działa bez twojej zgody (żart)</span></div></section>
+<script>
+const intro=document.querySelector('#intro'),desktop=document.querySelector('#desktop'),go=document.querySelector('#go'),exit=document.querySelector('#exit');
+const pics=['assets/ziomek1.jpg','assets/ziomek2.jpg'];
+const msgs=['CO TY ROBISZ XDD','ZIOMEK.EXE NIE ODPOWIADA','PATRZ NA MNIE 💀','BŁĄD: ZA DUŻO AURY','SIEMANO KOLANO','ZAMKNIJ TO (NIE ZAMKNIESZ)','SYSTEM ZIOMKA 2000','KTO TO WKLEIŁ'];
+let active=false,spawnTimer=null,phraseTimer=null,space=0,audio=null;
+function beep(){try{audio ||= new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.type=Math.random()>.5?'square':'sawtooth';o.frequency.setValueAtTime(180+Math.random()*850,audio.currentTime);o.frequency.exponentialRampToValueAtTime(90+Math.random()*300,audio.currentTime+.16);g.gain.setValueAtTime(.055,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.19);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.2)}catch(e){}}
+function rand(n){return Math.random()*n}
+function makeWindow(){
+ if(!active)return;
+ const w=document.createElement('div');w.className='window';
+ w.style.left=rand(Math.max(1,innerWidth-Math.min(280,innerWidth*.72)))+'px';
+ w.style.top=rand(Math.max(1,innerHeight-310))+'px';w.style.zIndex=String(10+Math.floor(rand(900)));
+ const title=['Ważny komunikat','ziomek.exe','BŁĄD SYSTEMU','Nowe okienko lol'][Math.floor(rand(4))];
+ const pic=pics[Math.floor(rand(pics.length))];
+ w.innerHTML=`<div class="titlebar"><span>${title}</span><button class="x" aria-label="zamknij">×</button></div><img src="${pic}" alt="Zdjęcie ziomka"><div class="msg">${msgs[Math.floor(rand(msgs.length))]}</div><div class="bar"><button class="ok">OK XD</button><button class="more">NIE KLIKAJ</button></div>`;
+ w.querySelector('.x').onclick=()=>{w.remove();beep()};w.querySelector('.ok').onclick=()=>{w.querySelector('.msg').textContent=msgs[Math.floor(rand(msgs.length))];beep();if(Math.random()>.5)makeWindow()};
+ w.querySelector('.more').onclick=()=>{w.style.left=rand(Math.max(1,innerWidth-w.offsetWidth))+'px';w.style.top=rand(Math.max(1,innerHeight-290))+'px';w.style.transform=`rotate(${rand(18)-9}deg)`;beep()};
+ desktop.appendChild(w);beep();
+ if(desktop.querySelectorAll('.window').length>24){desktop.querySelector('.window')?.remove()}
+}
+function begin(){if(active)return;active=true;intro.style.display='none';desktop.style.display='block';desktop.classList.add('shake');for(let i=0;i<5;i++)makeWindow();spawnTimer=setInterval(makeWindow,650);phraseTimer=setInterval(()=>{if(active&&Math.random()>.4)makeWindow()},1400)}
+function end(){active=false;clearInterval(spawnTimer);clearInterval(phraseTimer);desktop.querySelectorAll('.window').forEach(x=>x.remove());desktop.style.display='none';desktop.classList.remove('shake');intro.style.display='grid';space=0}
+go.onclick=begin;exit.onclick=end;document.addEventListener('keydown',e=>{if(e.key==='Escape')end();if(e.code==='Space'&&!active){e.preventDefault();space++;if(space>=3)begin()}});
+</script></body></html>
